@@ -6,6 +6,7 @@ import datetime
 import getpass
 import re
 import requests
+import sys
 
 from selenium import webdriver
 from helper_functions import *
@@ -27,24 +28,19 @@ loginURL = "https://moodle.s.kyushu-u.ac.jp/login/index.php"
 
 
 if __name__ == "__main__":
-    print('Hello')
-
-    # 0. Get System Arguments
-        # Update Timetable
-        # Register Course on Moodle
-        # if no arguments, take attendance
-    # Get username and Password
-    username = input('Username: ')
-    pw = getpass.getpass('Password: ')
-    # Access Moodle Log In Page
-    browser = webdriver.Firefox()
-    browser.get(loginURL)
-    # Log In
-    login(browser, username, pw)
-
-    # 3. Access Course Page
-    # 4. Access Attentance Page (of the Course)
-    # 5. Take Attendance
-
-    # Quit
-    browser.quit()
+    # get argument from terminal
+    task = sys.argv[1:2] # this decides what the program will do
+    if len(task) == 0:
+        print('Usage: python main.py <feature>.')
+        print("""
+            Features currently available:
+            1. Automatic Attendance <attend>
+            2. Search for a Subject <search>
+        """)
+    else:
+        if (task == 'attend'):
+            attend()
+        elif (task == 'search'):
+            search()
+        else:
+            print("That feature is currently not available.\nPlease try it again.")
