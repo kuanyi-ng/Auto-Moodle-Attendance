@@ -1,12 +1,12 @@
 #! python 3
 #! utf-8
 
-import bs4
 import getpass
 import re
 import requests
 import sys
 
+from bs4 import BeautifulSoup
 from helper_functions import *
 
 if __name__ == "__main__":
@@ -20,9 +20,10 @@ if __name__ == "__main__":
             2. Search for a Subject <search>
         """)
     else:
-        if (task == 'attend'):
+        print(task)
+        if (task[0] == 'attend'):
             attend()
-        elif (task == 'search'):
+        elif (task[0] == 'search'):
             search()
         else:
             print("That feature is currently not available.\nPlease try it again.")
