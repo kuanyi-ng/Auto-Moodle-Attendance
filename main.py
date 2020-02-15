@@ -20,7 +20,6 @@ if __name__ == "__main__":
             2. Search for a Subject <search>
         """)
     else:
-        print(task)
         if (task[0] == 'attend'):
             attend()
         elif (task[0] == 'search'):
