@@ -18,6 +18,9 @@ headers = {
     'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0"
 }
 
+day_ref = {0: '月', 1: '火' , 2: '水', 3: '木', 4: '金'}
+attendance_ref = {'欠': 0, '出': 1}
+
 """ Common Functions """
 def login(session):
     req = session.get(loginURL, headers=headers)
@@ -35,9 +38,8 @@ def login(session):
 
     # login
     res = session.post(loginURL, data=login_data, headers=headers)
-    if (res.status_code == requests.codes.ok):
+    if (res.status_code == requests.codes.ok): # TODO: not a good check for success login
         print('Logged In')
-        # return soup of page after login
         return True
     else:
         print('Failed to log in.')
@@ -56,25 +58,36 @@ def login(session):
 """
 
 def attend():
-    with requests.Session() as s:
+    with requests.Session() as session:
         # Login
-        loggedIn = login(s)
+        loggedIn = login(session)
         if loggedIn:
             # get Timetable
             timetable = pd.read_csv('data/timetable.csv')
-            # Check Attendance
+            # Get current date and time
+            # TODO: Need to deal with situation where classes are held on other day
             now = {
                 'year': 2020,
                 'month': 2,
                 'day': 4,
-                'weekofday': 1,
+                'dayofweek': 1,
                 'period': 1
             }
-            courseID = timetable.loc[(timetable['Week of Day'] == now['weekofday']) &
+            date = f"{str(now['month']).rjust(2, '0')}月{str(now['day']).rjust(2, '0')}日({day_ref[now['dayofweek']]})"
+            courseID = timetable.loc[(timetable['Week of Day'] == now['dayofweek']) &
                                      (timetable['Period'] == now['period']), 'ID'].values[0]
-            course_req = s.get(courseURL + str(courseID))
-            print(course_req.status_code)
+            course_req = session.get(courseURL + str(courseID))
 
+            course_soup = BeautifulSoup(course_req.text, 'lxml')
+            attendanceURL = course_soup.find_all("a", string="詳細 ...")[0].get('href')
+            attendance_req = session.get(attendanceURL)
+            attendance_soup = BeautifulSoup(attendance_req.text, 'lxml')
+
+            attendance = attendance_soup.find("td", class_='c1', string=date).find_next_sibling("td", class_='c6')
+
+            while (attendance_ref[attendance.string] != 1):
+                # TODO: refresh until it changes
+            print('Attendance Taken')
 
 def search():
     pass
