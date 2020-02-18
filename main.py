@@ -26,7 +26,44 @@ if __name__ == "__main__":
                 attend(replace=True)
             else:
                 attend()
+
         elif (param[0] == 'search'):
-            search()
+            if len(param[1:]) > 1:
+                
+                for course in param[1:]: 
+                    content = search(course)
+                    print(f"Search : {course}")
+                    print(content+'\n')
+
+                    option = input("Enter -1 if your course is not here!\nChoose one of the courses :")
+                    if(option == -1):
+                            retry = input("Search : ")
+                            content = search(retry)
+
+                            for i in range( len(content) ):
+                                print(content[i])
+
+                        else : 
+                            # Maybe register into courses' csv
+                            pass 
+
+            else:
+                content = search(param[1])
+
+                # Receive possible search results
+                if len(content) > 1:
+                    print(content)
+                    option = input("Enter -1 if your course is not here!\nChoose one of the courses :")
+
+                    if(option == -1):
+                        retry = input("Search : ")
+                        content = search(retry)
+
+                        for i in range( len(content) ):
+                            print(content[i])
+
+                    else : 
+                        # Maybe register into courses' csv
+                        pass 
         else:
             print("That feature is currently not available.\nPlease try it again.")

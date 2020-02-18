@@ -229,4 +229,10 @@ def search(searchInput):
     except Exception:
         print("Cannot connect to website!\nPlease check connection again or Try Again.")
 
-    return dict( zip(course_name, course_id) )
+    indexes = []
+    interate = 0
+    for course in course_name:
+        indexes.append(interate)
+        interate += 1
+
+    return dict( zip( indexes, course_name, course_id) )
