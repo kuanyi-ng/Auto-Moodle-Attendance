@@ -18,7 +18,7 @@ if __name__ == "__main__":
             Features currently available:
             1. Automatic Attendance <attend>
             2. Automatic Attendance (Replacement Class) <attend replace>
-            3. Search for a Subject <search>
+            3. Search for a Subject <search> <search-keyword>
         """)
     else:
         if (param[0] == 'attend'):
@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
                     for (index, result) in enumerate(content, start=1):
                             print(f"{index} : {result}")
-                    print() 
+                    print()
 
                 for course in param[1:]:
                     option = input(f"Enter n if your course is not here!\nChoose one of the courses {course}:")
@@ -47,16 +47,6 @@ if __name__ == "__main__":
                             for (index, result) in enumerate(content, start=1):
                                 print(f"{index} : {result}")
                             print()
-
-<<<<<<< HEAD
-                    else:
-                        # Maybe register into courses' csv
-                        pass
-=======
-                    else : 
-                        # Maybe register into courses' csv
-                        pass 
->>>>>>> 306aa339b5273eb4be0b76a22719b01d1d42a388
 
             else:
                 content = search(param[1])
