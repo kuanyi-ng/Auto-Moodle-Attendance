@@ -7,7 +7,7 @@ import requests
 import sys
 
 from bs4 import BeautifulSoup
-from test import *
+from helper_functions import *
 
 if __name__ == "__main__":
     # get argument from terminal
