@@ -7,7 +7,7 @@ import requests
 import sys
 
 from bs4 import BeautifulSoup
-from helper_functions import *
+from test import *
 
 if __name__ == "__main__":
     # get argument from terminal
@@ -33,34 +33,43 @@ if __name__ == "__main__":
                 for course in param[1:]: 
                     content = search(course)
                     print(f"Search : {course}")
-                    print(content+'\n')
 
-                    option = input("Enter -1 if your course is not here!\nChoose one of the courses :")
-                    if(option == -1):
-                            retry = input("Search : ")
+                    for (index, result) in enumerate(content, start=1):
+                            print(f"{index} : {result}")
+                    print() 
+
+                for course in param[1:]:
+                    option = input(f"Enter n if your course is not here!\nChoose one of the courses {course}:")
+                    if(option == 'n'):
+                            retry = input(f"Search {course}: ")
                             content = search(retry)
 
-                            for i in range( len(content) ):
-                                print(content[i])
+                            for (index, result) in enumerate(content, start=1):
+                                print(f"{index} : {result}")
+                            print()
 
-                        else : 
-                            # Maybe register into courses' csv
-                            pass 
+                    else : 
+                        # Maybe register into courses' csv
+                        pass 
 
             else:
                 content = search(param[1])
 
                 # Receive possible search results
                 if len(content) > 1:
-                    print(content)
-                    option = input("Enter -1 if your course is not here!\nChoose one of the courses :")
+                    for (index, result) in enumerate(content, start=1):
+                            print(f"{index} : {result}")
+                    print()
 
-                    if(option == -1):
+                    option = input("Enter n if your course is not here!\nChoose one of the courses : ")
+
+                    if(option == 'n'):
                         retry = input("Search : ")
                         content = search(retry)
 
-                        for i in range( len(content) ):
-                            print(content[i])
+                        for (index, result) in enumerate(content, start=1):
+                            print(f"{index} : {result}")
+                        print()
 
                     else : 
                         # Maybe register into courses' csv
