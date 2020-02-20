@@ -29,8 +29,8 @@ if __name__ == "__main__":
 
         elif (param[0] == 'search'):
             if len(param[1:]) > 1:
-                
-                for course in param[1:]: 
+
+                for course in param[1:]:
                     content = search(course)
                     print(f"Search : {course}")
                     print(content+'\n')
@@ -43,9 +43,9 @@ if __name__ == "__main__":
                             for i in range( len(content) ):
                                 print(content[i])
 
-                        else : 
-                            # Maybe register into courses' csv
-                            pass 
+                    else:
+                        # Maybe register into courses' csv
+                        pass
 
             else:
                 content = search(param[1])
@@ -62,8 +62,8 @@ if __name__ == "__main__":
                         for i in range( len(content) ):
                             print(content[i])
 
-                    else : 
+                    else :
                         # Maybe register into courses' csv
-                        pass 
+                        pass
         else:
             print("That feature is currently not available.\nPlease try it again.")
