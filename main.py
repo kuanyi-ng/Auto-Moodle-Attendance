@@ -28,6 +28,9 @@ if __name__ == "__main__":
                 attend()
 
         elif (param[0] == 'search'):
+            if (len(param[1:]) == 0):
+                print('Usage: python main.py search <name/id>.')
+                
             if len(param[1:]) > 1:
 
                 for course in param[1:]:
@@ -39,7 +42,7 @@ if __name__ == "__main__":
                     print()
 
                 for course in param[1:]:
-                    option = input(f"Enter n if your course is not here!\nChoose one of the courses {course}:")
+                    option = input(f"Enter n if your course is not here!\nChoose one of the courses ({course}):")
                     if(option == 'n'):
                             retry = input(f"Search {course}: ")
                             content = search(retry)

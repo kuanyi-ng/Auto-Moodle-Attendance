@@ -197,15 +197,11 @@ def search(searchInput):
                 search_soup = BeautifulSoup(search_result, 'lxml')
                 course_tags = search_soup.find_all(href=findId)
 
-                # if searchInput == possible course name
-                search_result = session.post(searchURL + searchInput).text
-                search_soup = BeautifulSoup(search_result, 'lxml')
-                course_tags = search_soup.find_all(href=findId)
-
                 # find the course from search results
                 for courses in course_tags:
                     for course in courses.find_all('span', attrs={'class', 'highlight'}):
                         course_name.append(courses.text)
+                    
 
                 # if searchInput was == id
                 if course_name == []:
@@ -214,13 +210,14 @@ def search(searchInput):
                     course_info = result_soup.find_all(href=findId)[0]
                     course_name.append(course_info)
 
+
                     if course_name == []:
                         print(f"Cannot find {searchInput}!")
 
                 else :
                     # find the class id
                     tmp = []
-                    for tag in course_name:
+                    for tag in course_tags:
                         tmp.append(str(tag))
 
                     for name in tmp:
@@ -229,4 +226,9 @@ def search(searchInput):
     except Exception:
         print("Cannot connect to website!\nPlease check connection again or Try Again.")
 
+
+    # print( dict( zip(course_name, course_id) ) )
     return dict( zip(course_name, course_id) )
+
+
+search('brain')
