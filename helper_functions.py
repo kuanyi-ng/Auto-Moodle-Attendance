@@ -243,5 +243,8 @@ def search(searchInput):
     # print( dict( zip(course_name, course_id) ) )
     return dict( zip(course_name, course_id) )
 
+def register(course_fullName, id):
+    pass
+
 if __name__ == "__main__":
     search('brain')
