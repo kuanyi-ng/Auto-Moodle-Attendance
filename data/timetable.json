@@ -2,29 +2,29 @@
   "weekday": {
     "Mon": {
       "1": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "2": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "3": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "4": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "5": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       }
     },
     "Tue": {
@@ -34,105 +34,105 @@
         "id": 20290
       },
       "2": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "3": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "4": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "5": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       }
     },
     "Wed": {
       "1": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "2": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "3": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "4": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "5": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       }
     },
     "Thu": {
       "1": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "2": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "3": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "4": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "5": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       }
     },
     "Fri": {
       "1": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "2": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "3": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "4": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       },
       "5": {
-        "course": "",
-        "lecturer": "",
-        "id": -1
+        "course": null,
+        "lecturer": null,
+        "id": null
       }
     }
   }

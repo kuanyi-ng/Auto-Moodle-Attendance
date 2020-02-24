@@ -3,7 +3,8 @@
 
 import datetime
 import getpass
-import pandas as pd
+#import pandas as pd
+import json
 import re
 import requests
 import sys
@@ -20,13 +21,19 @@ headers = {
     'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0"
 }
 
+day_ref_en = {0: 'Mon', 1: 'Tue' , 2: 'Wed', 3: 'Thu', 4: 'Fri', 5: 'Sat', 6: 'Sun'}
 day_ref = {0: '月', 1: '火' , 2: '水', 3: '木', 4: '金', 5: '土', 6: '日'}
 attendance_ref = {'欠': 0, '出': 1, '遅': 2}
 
 """ Common Functions """
 def login(session):
     req = session.get(loginURL, headers=headers)
-    print(req.status_code) # 200 if okay
+
+    if (req.status_code != 200):
+        raise Exception("ERROR: Couldn't connect to Moodle")
+
+    # 200 if okay
+    print("Connected to Moodle")
     # information needed for login
     login_data = {
         'logintoken': '',
@@ -105,11 +112,17 @@ def get_datetimeData(abnormal=False):
         'period': int(input("Period (this Course): ")) if abnormal else get_period(now.hour, now.minute)
     }
 
-def get_timetableData(datetime_data, col):
-    timetable = pd.read_csv('data/timetable.csv')
-    results = timetable.loc[(timetable['Week of Day'] == datetime_data['weekday']) &
-                         (timetable['Period'] == datetime_data['period']), col]
-    return results.values[0] if (results.shape[0] != 0) else None
+def get_timetableData(datetime_data, info):
+    # load json file
+    with open("data/timetable.json", "r") as dataFile:
+        timetable = json.load(dataFile)
+
+        weekOfDay = day_ref_en[datetime_data['weekday']] # str
+        period = str(datetime_data['period']) # str
+
+        result = timetable['weekday'][weekOfDay][period][info]
+
+    return result
 
 def get_attendanceURL(course_soup):
     try:
@@ -135,7 +148,7 @@ def attend(replace=False):
             datetime_data = get_datetimeData(replace)
             date = get_date(datetime_data)
             # get Course ID
-            courseID = get_timetableData(datetime_data, 'ID')
+            courseID = get_timetableData(datetime_data, 'id')
             if (courseID != None):
                 course_soup = BeautifulSoup(session.get(courseURL + str(courseID)).text, 'lxml')
                 # get the URL to enter page with attendance details
@@ -151,12 +164,12 @@ def attend(replace=False):
                         limit += 1
 
                     if (attendance_status == -1):
-                        print(f"{get_timetableData(datetime_data, 'Course')} doesn't have class today.")
+                        print(f"{get_timetableData(datetime_data, 'course')} doesn't have class today.")
                         print("Otherwise, there might be mistake(s) in the user input or in the date appeared on Moodle.")
                     elif (attendance_status == 1):
-                        print(f"Attendance Taken: {get_timetableData(datetime_data, 'Course')}")
+                        print(f"Attendance Taken: {get_timetableData(datetime_data, 'course')}")
                     elif (attendance_status == 2):
-                        print(f"Attendance (Late) Taken: {get_timetableData(datetime_data, 'Course')}")
+                        print(f"Attendance (Late) Taken: {get_timetableData(datetime_data, 'course')}")
                     else:
                         print('Attendance Not Taken as limit is exceeded.\nPlease try it again later.')
             else:
