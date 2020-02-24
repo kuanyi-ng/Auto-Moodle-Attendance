@@ -30,7 +30,7 @@ if __name__ == "__main__":
         elif (param[0] == 'search'):
             if (len(param[1:]) == 0):
                 print('Usage: python main.py search <name/id>.')
-                
+
             if len(param[1:]) > 1:
 
                 for course in param[1:]:
@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
                     else :
                         # Maybe register into courses' csv
+                        register()
                         pass
         else:
             print("That feature is currently not available.\nPlease try it again.")

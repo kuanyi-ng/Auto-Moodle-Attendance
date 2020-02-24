@@ -56,14 +56,6 @@ def login(session):
 
 """
 ====== Automation of Attendance Taking on Moodle =====
-| Timetable |
-- excel file
-- editable by user
-
-| Timetable (csv) |
-- read-only (user)
-- generated / updated with Python based on Timetable
-- has same content with Timetable (excel) but also comes with Subject ID
 """
 
 def get_period(hour, minute):
@@ -180,6 +172,10 @@ def attend(replace=False):
                     2. Course isn't register (with this program)
                 """)
 
+"""
+====== Search for Course on Moodle =====
+"""
+
 def findId(href):
     # Filtering searched html
     return href and re.compile("view.php\?id=\d\d\d\d\d").search(href)
@@ -242,6 +238,34 @@ def search(searchInput):
 
     # print( dict( zip(course_name, course_id) ) )
     return dict( zip(course_name, course_id) )
+
+"""
+====== Register for Course on Moodle =====
+"""
+
+def get_RegisterData(course_fullName):
+    """
+    example of course_fullName, 2020年度前期・木3木4・プログラミング基礎（伊藤　浩史）
+    regex for this:
+    """
+    _, dayPeriodPart, coursePart = course_fullName.split(u'\u30FB') # split by・
+
+    dayPeriodMatch = re.split(r'(.{1}\d)', dayPeriodPart)
+    while ('' in dayPeriodMatch): # clean dayPeriodMatch
+        dayPeriodMatch.remove('')
+
+    courseMatch = re.search(r'(.*)(\uff08.*\uff09)', coursePart)
+
+    return {
+        "weekday": [d[0] for d in dayPeriodMatch],
+        "period": [d[1] for d in dayPeriodMatch],
+        "course": courseMatch.group(1),
+        "lecturer": courseMatch.group(2)
+    }
+
+def register():
+    get_RegisterData("2020年度前期・木3木4・プログラミング基礎（伊藤　浩史）")
+    pass
 
 if __name__ == "__main__":
     search('brain')
