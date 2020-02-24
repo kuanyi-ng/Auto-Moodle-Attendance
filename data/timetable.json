@@ -1,0 +1,139 @@
+{
+  "weekday": {
+    "Mon": {
+      "1": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "2": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "3": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "4": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "5": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      }
+    },
+    "Tue": {
+      "1": {
+        "course": "データマイニングと情報可視化",
+        "lecturer": "稲垣 紫緒",
+        "id": 20290
+      },
+      "2": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "3": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "4": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "5": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      }
+    },
+    "Wed": {
+      "1": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "2": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "3": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "4": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "5": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      }
+    },
+    "Thu": {
+      "1": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "2": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "3": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "4": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "5": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      }
+    },
+    "Fri": {
+      "1": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "2": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "3": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "4": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      },
+      "5": {
+        "course": "",
+        "lecturer": "",
+        "id": -1
+      }
+    }
+  }
+}

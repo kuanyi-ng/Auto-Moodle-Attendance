@@ -201,7 +201,7 @@ def search(searchInput):
                 for courses in course_tags:
                     for course in courses.find_all('span', attrs={'class', 'highlight'}):
                         course_name.append(courses.text)
-                    
+
 
                 # if searchInput was == id
                 if course_name == []:
@@ -230,5 +230,5 @@ def search(searchInput):
     # print( dict( zip(course_name, course_id) ) )
     return dict( zip(course_name, course_id) )
 
-
-search('brain')
+if __name__ == "__main__":
+    search('brain')
