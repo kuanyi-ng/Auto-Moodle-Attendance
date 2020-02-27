@@ -129,12 +129,13 @@ def get_timetableData(datetime_data, info):
     with open("data/timetable.json", "r") as jsonFile:
         timetable = json.load(jsonFile)
 
-        weekOfDay = day_ref_en[datetime_data['weekday']] # str
-        period = str(datetime_data['period']) # str
+    weekOfDay = day_ref_en[datetime_data['weekday']] # str
+    period = str(datetime_data['period']) # str
 
-        result = timetable['weekday'][weekOfDay][period][info]
-
-    return result
+    if (period == '-1'):
+        return None
+    else:
+        return timetable['weekday'][weekOfDay][period][info]
 
 def get_attendanceURL(course_soup):
     try:
