@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 from helper_functions import *
 
 if __name__ == "__main__":
+    # check if timetable.json exist
+    doTimetableExist()
     # get argument from terminal
     param = sys.argv[1:] # this decides what the program will do
     if (len(param) == 0):
@@ -50,6 +52,11 @@ if __name__ == "__main__":
                             for (index, result) in enumerate(content, start=1):
                                 print(f"{index} : {result}")
                             print()
+                    else:
+                        course_id = list(content.values())[int(option)-1]
+                        course_fullName = list(content.keys())[int(option)-1]
+
+                        register(course_fullName, course_id)
 
             else:
                 content = search(param[1])
@@ -71,8 +78,10 @@ if __name__ == "__main__":
                         print()
 
                     else :
-                        # Maybe register into courses' csv
-                        register()
-                        pass
+                        course_id = list(content.values())[int(option)-1]
+                        course_fullName = list(content.keys())[int(option)-1]
+
+                        register(course_fullName, course_id)
+
         else:
             print("That feature is currently not available.\nPlease try it again.")
