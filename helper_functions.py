@@ -163,7 +163,8 @@ def attend(replace=False):
             # get Course ID
             courseID = get_timetableData(datetime_data, 'id')
             if (courseID != None):
-                course_soup = BeautifulSoup(session.get(courseURL + str(courseID)).text, 'lxml')
+                # course_soup = BeautifulSoup(session.get(courseURL + str(courseID)).text, 'lxml')
+                course_soup = BeautifulSoup(session.get(courseURL + courseID).text, 'lxml')
                 # get the URL to enter page with attendance details
                 attendanceURL = get_attendanceURL(course_soup)
                 if (len(attendanceURL) > 0):
@@ -264,7 +265,7 @@ def search(searchInput):
 ====== Register for Course on Moodle =====
 """
 
-def get_RegisterData(course_fullName, id):
+def get_RegisterData(course_fullName, course_id):
     """
     example of course_fullName, 2020年度前期・木3木4・プログラミング基礎（伊藤　浩史）
     regex for this:
@@ -282,7 +283,7 @@ def get_RegisterData(course_fullName, id):
         "period": [d[1] for d in dayPeriodMatch],
         "course": courseMatch.group(1),
         "lecturer": courseMatch.group(2),
-        "id": id
+        "id": course_id
     }
 
 def register(course_fullName, id):
