@@ -50,6 +50,11 @@ if __name__ == "__main__":
                             for (index, result) in enumerate(content, start=1):
                                 print(f"{index} : {result}")
                             print()
+                    else:
+                        course_id = list(content.values())[int(option)-1]
+                        course_fullName = list(content.keys())[int(option)-1]
+
+                        register(course_fullName, course_id)
 
             else:
                 content = search(param[1])
@@ -71,8 +76,10 @@ if __name__ == "__main__":
                         print()
 
                     else :
-                        # Maybe register into courses' csv
-                        register() # TODO: fill in here (selected course_fullName and id)
-                        pass
+                        course_id = list(content.values())[int(option)-1]
+                        course_fullName = list(content.keys())[int(option)-1]
+
+                        register(course_fullName, course_id)
+                        
         else:
             print("That feature is currently not available.\nPlease try it again.")
