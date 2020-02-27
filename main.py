@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 from helper_functions import *
 
 if __name__ == "__main__":
+    # check if timetable.json exist
+    doTimetableExist()
     # get argument from terminal
     param = sys.argv[1:] # this decides what the program will do
     if (len(param) == 0):

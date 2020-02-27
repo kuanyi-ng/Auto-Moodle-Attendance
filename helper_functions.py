@@ -3,7 +3,6 @@
 
 import datetime
 import getpass
-#import pandas as pd
 import json
 import re
 import requests
@@ -27,6 +26,26 @@ day_ref_jap_en = {'月': 'Mon' , '火': 'Tue'  , '水': 'Wed', '木': 'Thu', '�
 attendance_ref = {'欠': 0, '出': 1, '遅': 2}
 
 """ Common Functions """
+def doTimetableExist():
+    try:
+        print("Checking if timetable exist...")
+        open('data/timetable.json')
+    except FileNotFoundError:
+        print("Timetable.json is not found.")
+        # create empty json file
+        empty = {
+            "course": None,
+            "lecturer": None,
+            "id": None
+        }
+        print("Creating timetable.json ...")
+        with open('data/timetable.json', 'w') as jsonFile:
+            emptyTimetable = {"weekday": {}}
+            for day in ["Mon", "Tue", "Wed", "Thu", "Fri"]:
+                emptyTimetable["weekday"][day] = { str(n): empty for n in range(1, 6) }
+            json.dump(emptyTimetable, jsonFile)
+        print("timetable.json is created.")
+
 def login(session):
     req = session.get(loginURL, headers=headers)
 
