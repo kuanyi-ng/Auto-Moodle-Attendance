@@ -255,7 +255,7 @@ def get_RegisterData(course_fullName, id):
     while ('' in dayPeriodMatch): # clean dayPeriodMatch
         dayPeriodMatch.remove('')
 
-    courseMatch = re.search(r'(.*)(\uff08.*\uff09)', coursePart)
+    courseMatch = re.search(r'(.*)\uff08(.*)\uff09', coursePart)
 
     return {
         "weekday": [d[0] for d in dayPeriodMatch],
