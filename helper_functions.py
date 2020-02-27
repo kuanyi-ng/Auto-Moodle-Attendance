@@ -23,6 +23,7 @@ headers = {
 
 day_ref_en = {0: 'Mon', 1: 'Tue' , 2: 'Wed', 3: 'Thu', 4: 'Fri', 5: 'Sat', 6: 'Sun'}
 day_ref = {0: '月', 1: '火' , 2: '水', 3: '木', 4: '金', 5: '土', 6: '日'}
+day_ref_jap_en = {'月': 'Mon' , '火': 'Tue'  , '水': 'Wed', '木': 'Thu', '金': 'Fri', '土': 'Sat' , '日': 'Sun'}
 attendance_ref = {'欠': 0, '出': 1, '遅': 2}
 
 """ Common Functions """
@@ -56,14 +57,6 @@ def login(session):
 
 """
 ====== Automation of Attendance Taking on Moodle =====
-| Timetable |
-- excel file
-- editable by user
-
-| Timetable (csv) |
-- read-only (user)
-- generated / updated with Python based on Timetable
-- has same content with Timetable (excel) but also comes with Subject ID
 """
 
 def get_period(hour, minute):
@@ -114,8 +107,8 @@ def get_datetimeData(abnormal=False):
 
 def get_timetableData(datetime_data, info):
     # load json file
-    with open("data/timetable.json", "r") as dataFile:
-        timetable = json.load(dataFile)
+    with open("data/timetable.json", "r") as jsonFile:
+        timetable = json.load(jsonFile)
 
         weekOfDay = day_ref_en[datetime_data['weekday']] # str
         period = str(datetime_data['period']) # str
@@ -180,6 +173,10 @@ def attend(replace=False):
                     2. Course isn't register (with this program)
                 """)
 
+"""
+====== Search for Course on Moodle =====
+"""
+
 def findId(href):
     # Filtering searched html
     return href and re.compile("view.php\?id=\d\d\d\d\d").search(href)
@@ -243,8 +240,64 @@ def search(searchInput):
     # print( dict( zip(course_name, course_id) ) )
     return dict( zip(course_name, course_id) )
 
+"""
+====== Register for Course on Moodle =====
+"""
+
+def get_RegisterData(course_fullName, id):
+    """
+    example of course_fullName, 2020年度前期・木3木4・プログラミング基礎（伊藤　浩史）
+    regex for this:
+    """
+    _, dayPeriodPart, coursePart = course_fullName.split(u'\u30FB') # split by・
+
+    dayPeriodMatch = re.split(r'(.{1}\d)', dayPeriodPart)
+    while ('' in dayPeriodMatch): # clean dayPeriodMatch
+        dayPeriodMatch.remove('')
+
+    courseMatch = re.search(r'(.*)(\uff08.*\uff09)', coursePart)
+
+    return {
+        "weekday": [d[0] for d in dayPeriodMatch],
+        "period": [d[1] for d in dayPeriodMatch],
+        "course": courseMatch.group(1),
+        "lecturer": courseMatch.group(2),
+        "id": id
+    }
+
 def register(course_fullName, id):
-    pass
+    courseToRegister = get_RegisterData(course_fullName, id)
+    # read json file
+    with open("data/timetable.json", "r") as jsonFile:
+        timetable = json.load(jsonFile)
+    # check for conflicts
+    for i in range(len(courseToRegister["weekday"])):
+        weekOfDay = day_ref_jap_en[courseToRegister["weekday"][i]]
+        period = courseToRegister["period"][i]
+        # other course are registered in this slot
+        if (timetable["weekday"][weekOfDay][period]["course"] != None):
+            # print registered course details
+            print(f"Another course is registered on {weekOfDay}'s period {period}")
+            print(f"Course registered: {timetable['weekday'][weekOfDay][period]['course']}")
+            # ask if want to overwrite
+            overwrite = input("Do you want to overwrite it?: (Y/y)")
+            if (overwrite not in ['Y', 'y']):
+                print(f"{courseToRegister['course']} is not registered.")
+                return False
+    # prepare new data for timetable.json
+    print(f"Registering {courseToRegister['course']}...")
+    for i in range(len(courseToRegister["weekday"])):
+        weekOfDay = day_ref_jap_en[courseToRegister["weekday"][i]]
+        period = courseToRegister["period"][i]
+        timetable["weekday"][weekOfDay][period]["course"] = courseToRegister["course"]
+        timetable["weekday"][weekOfDay][period]["lecturer"] = courseToRegister["lecturer"]
+        timetable["weekday"][weekOfDay][period]["id"] = courseToRegister["id"]
+    # update timetable.json
+    with open("data/timetable.json", "w") as jsonFile:
+        json.dump(timetable, jsonFile)
+
+    print(f"{courseToRegister['course']} registered!")
+    return True
 
 if __name__ == "__main__":
     search('brain')

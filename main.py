@@ -76,10 +76,16 @@ if __name__ == "__main__":
                         print()
 
                     else :
+<<<<<<< HEAD
                         course_id = list(content.values())[int(option)-1]
                         course_fullName = list(content.keys())[int(option)-1]
 
                         register(course_fullName, course_id)
                         
+=======
+                        # Maybe register into courses' csv
+                        register()
+                        pass
+>>>>>>> register
         else:
             print("That feature is currently not available.\nPlease try it again.")
