@@ -227,8 +227,9 @@ def search(searchInput):
                 else :
                     # find the class id
                     tmp = []
-                    for tag in course_tags:
-                        tmp.append(str(tag))
+                    for courses in course_tags:
+                        for course in courses.find_all('span', attrs={'class', 'highlight'}):
+                            tmp.append(str(courses))
 
                     for name in tmp:
                         course_id.append(name[69:74])
@@ -237,7 +238,6 @@ def search(searchInput):
         print("Cannot connect to website!\nPlease check connection again or Try Again.")
 
 
-    # print( dict( zip(course_name, course_id) ) )
     return dict( zip(course_name, course_id) )
 
 """
